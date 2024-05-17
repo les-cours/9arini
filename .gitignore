@@ -1,0 +1,10 @@
+.now
+.env
+.env.local
+.vercel.json
+.vercel
+/node_modules
+./node_modules
+./.idea
+/.idea
+#git ignore
