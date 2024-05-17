@@ -17,17 +17,15 @@ type Props = any;
 const LoginForm: React.FC<Props> = props => {
   const { register, handleSubmit, setValue, errors } = useForm();
 
-  const { login,user,loading } = useAuth();
-
-
-const router = useRouter()
+  const {isAuthenticated,user,login,error} = useAuth();
+  const router = useRouter()
 
   useEffect(() => {
     console.log(user)
-    if (user) {
+    if (isAuthenticated) {
       router.push('/');
     }
-  }, [user, router]);
+  }, [isAuthenticated, router]);
 
 
   useEffect(() => {
@@ -35,11 +33,12 @@ const router = useRouter()
     register({ name: 'email' });
     register({ name: 'password' });
 
+
   }, [register]);
 
   const onSubmit= async (data) => {
 
-  
+
     const requestBody = {
       username: data.email,
       password: data["password"],
@@ -47,14 +46,12 @@ const router = useRouter()
     };
 
     try {
-      console.log("here")
       await login(requestBody);
     } catch (error) {
       console.error('Error:', error);
     }
 
-   
-   // alert("ok");
+
   };
 
 
@@ -92,7 +89,7 @@ const router = useRouter()
       <Block marginBottom="30px">
         <FormControl
           label="Password"
-          caption="********"
+          caption="Password"
           error={errors.name && 'This field is required'}
         >
           <Input
@@ -108,6 +105,7 @@ const router = useRouter()
             }}
           />
         </FormControl>
+        { error != null  ? <p style={{color:"red"}}>{error}</p> : <p></p> }
       </Block>
 
       <Button type="submit">Login</Button>

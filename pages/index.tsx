@@ -14,6 +14,8 @@ import Views from 'containers/Widgets/Views';
 import CashFlow from 'containers/Widgets/CashFlow';
 import { useQuery, gql } from '@apollo/client';
 import { withApollo } from 'apollo/client';
+// @ts-ignore
+import withAuth from 'contexts/WithAuth';
 import Head from 'next/head';
 
 const productsBarOptions = [
@@ -356,4 +358,5 @@ const Home: NextPage<{}> = () => {
 	);
 };
 
-export default withApollo(Home);
+// @ts-ignore
+export default withAuth(withApollo(Home));
