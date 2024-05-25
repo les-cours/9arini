@@ -17,6 +17,8 @@ import { withApollo } from 'apollo/client';
 // @ts-ignore
 import withAuth from 'contexts/WithAuth';
 import Head from 'next/head';
+import ProtectedRoute
+	from "../contexts/auth/ProtectedRoute";
 
 const productsBarOptions = [
 	{
@@ -359,4 +361,4 @@ const Home: NextPage<{}> = () => {
 };
 
 // @ts-ignore
-export default withAuth(withApollo(Home));
+export default ProtectedRoute(withApollo(Home));

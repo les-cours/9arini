@@ -22,6 +22,7 @@ type PricingCardProps = {
 	}[];
 	price: string | number;
 	btn: string;
+	typeTitle: string;
 	isLoading?: boolean;
 	onClick(event: React.MouseEvent<HTMLButtonElement>): void;
 };
@@ -29,6 +30,7 @@ type PricingCardProps = {
 const PricingCard = ({
 	title,
 	type,
+	typeTitle,
 	items,
 	price,
 	btn,
@@ -53,7 +55,7 @@ const PricingCard = ({
 						},
 					}}
 				>
-					{type}
+					{typeTitle}
 				</Tag>
 			);
 			break;
@@ -72,7 +74,7 @@ const PricingCard = ({
 						},
 					}}
 				>
-					{type}
+					{typeTitle}
 				</Tag>
 			);
 			break;
@@ -90,7 +92,7 @@ const PricingCard = ({
 						},
 					}}
 				>
-					{type}
+					{typeTitle}
 				</Tag>
 			);
 			break;

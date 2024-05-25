@@ -16,7 +16,7 @@ import 'assets/css/reset.css';
 import 'react-flexbox-grid/dist/react-flexbox-grid.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'typeface-open-sans';
-import { AuthProvider } from 'contexts/AuthContext';
+import { AuthProvider } from 'contexts/auth/AuthContext';
 export default function CustomApp({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = React.useState(THEME.light);
   React.useEffect(() => {

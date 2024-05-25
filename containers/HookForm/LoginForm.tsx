@@ -6,7 +6,7 @@ import { Button } from 'baseui/button';
 import { Block } from 'baseui/block';
 
 import { useRouter } from 'next/router';
-import { useAuth } from 'contexts/AuthContext';
+import { useAuth } from 'contexts/auth/AuthContext';
 
 
 
@@ -14,27 +14,13 @@ type Props = any;
 
 
 
-const LoginForm: React.FC<Props> = props => {
+const LoginForm: React.FC<Props> = ({user,login,error,loading}) => {
   const { register, handleSubmit, setValue, errors } = useForm();
 
-  const {isAuthenticated,user,login,error} = useAuth();
-  const router = useRouter()
-
-  useEffect(() => {
-    console.log(user)
-    if (isAuthenticated) {
-      router.push('/');
-    }
-  }, [isAuthenticated, router]);
-
-
-  useEffect(() => {
-    
-    register({ name: 'email' });
-    register({ name: 'password' });
-
-
-  }, [register]);
+    useEffect(() => {
+        register({ name: 'email' });
+        register({ name: 'password' });
+    }, [register]);
 
   const onSubmit= async (data) => {
 
@@ -60,56 +46,56 @@ const LoginForm: React.FC<Props> = props => {
 
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+     <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
 
 
-      <Block marginBottom="30px">
-        <FormControl
-          label="Your Email"
-          caption="johndoe@demo.io"
-          error={errors.email && 'Please enter a valid email address'}
-        >
-          <Input
-            name="email"
-            inputRef={register({
-              required: true,
-              pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-            })}
-            overrides={{
-              InputContainer: {
-                style: () => {
-                  return { backgroundColor: 'transparent' };
-                },
-              },
-            }}
-          />
-        </FormControl>
-      </Block>
+          <Block marginBottom="30px">
+            <FormControl
+                label="Your Email"
+                caption="johndoe@demo.io"
+                error={errors.email && 'Please enter a valid email address'}
+            >
+              <Input
+                  name="email"
+                  inputRef={register({
+                    required: true,
+                    pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                  })}
+                  overrides={{
+                    InputContainer: {
+                      style: () => {
+                        return { backgroundColor: 'transparent' };
+                      },
+                    },
+                  }}
+              />
+            </FormControl>
+          </Block>
 
-      <Block marginBottom="30px">
-        <FormControl
-          label="Password"
-          caption="Password"
-          error={errors.name && 'This field is required'}
-        >
-          <Input
-            type="password"
-            name="password"
-            inputRef={register({ required: true, maxLength: 32})}
-            overrides={{
-              InputContainer: {
-                style: () => {
-                  return { backgroundColor: 'transparent' };
-                },
-              },
-            }}
-          />
-        </FormControl>
-        { error != null  ? <p style={{color:"red"}}>{error}</p> : <p></p> }
-      </Block>
+          <Block marginBottom="30px">
+            <FormControl
+                label="Password"
+                caption="Password"
+                error={errors.name && 'This field is required'}
+            >
+              <Input
+                  type="password"
+                  name="password"
+                  inputRef={register({ required: true, maxLength: 32})}
+                  overrides={{
+                    InputContainer: {
+                      style: () => {
+                        return { backgroundColor: 'transparent' };
+                      },
+                    },
+                  }}
+              />
+            </FormControl>
+            { error != null  ? <p style={{color:"red"}}>{error}</p> : <p></p> }
+          </Block>
 
-      <Button type="submit">Login</Button>
-    </form>
+          <Button type="submit">Login</Button>
+        </form>
   );
 };
 
